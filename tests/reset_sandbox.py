@@ -1,0 +1,5 @@
+# Odoo shell script: cancel active jobs + free bays so the e2e suite starts clean (sandbox only!)
+env.cr.execute("UPDATE otm_cw_job SET state='cancelled' WHERE state NOT IN ('completed','cancelled')")
+env.cr.execute("UPDATE otm_cw_bay SET state='available', current_job_id=NULL")
+env.cr.execute("DELETE FROM otm_cw_bay_employee_rel")
+env.cr.commit(); print("sandbox reset")
